@@ -1,18 +1,8 @@
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GTK REQUIRED gtk4)
 
-set(TEST_LIST
-  test_opendialog.c
-  test_opendialog_cpp.cpp
-  test_opendialogmultiple.c
-  test_opendialogmultiple_cpp.cpp
-  test_opendialogmultiple_enum.c
-  test_pickfolder.c
-  test_pickfolder_cpp.cpp
-  test_savedialog.c)
-  
-foreach (TEST ${TEST_LIST})
-  string(REPLACE "." "_" CLEAN_TEST_NAME ${TEST})
-  add_executable(${CLEAN_TEST_NAME}
-    ${TEST})
-  target_link_libraries(${CLEAN_TEST_NAME}
-    PUBLIC nfd)
-endforeach()
+# Define the library
+add_executable(test "test.cpp")
+
+target_include_directories(test PRIVATE ${GTK_INCLUDE_DIRS})
+target_link_libraries(test PRIVATE ${GTK_LIBRARIES})
